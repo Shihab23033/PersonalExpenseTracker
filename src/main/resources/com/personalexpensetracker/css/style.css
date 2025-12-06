@@ -1,0 +1,48 @@
+.root {
+    -fx-font-family: "Segoe UI", Arial;
+    -fx-background-color: #f4f6f8;
+}
+
+.sidebar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 16;
+}
+
+.sidebar Button {
+    -fx-max-width: 160px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.heading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.list-cell {
+    -fx-font-size: 14px;
+}
+.chart-bar .default-color0.chart-bar {
+    -fx-bar-fill: #ff9933; /* orange */
+}
+.chart-bar .default-color1.chart-bar {
+    -fx-bar-fill: #3399ff; /* blue */
+}
+.chart-bar .default-color2.chart-bar {
+    -fx-bar-fill: #66cc66; /* green */
+}
+.chart-bar .default-color3.chart-bar {
+    -fx-bar-fill: #cc66cc; /* purple */
+}
+
+.bar-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+.total-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}

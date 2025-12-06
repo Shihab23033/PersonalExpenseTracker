@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.personalexpensetracker.controller.ReportController">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <Label text="Monthly Report" styleClass="heading"/>
+        <HBox spacing="10">
+            <Label text="Year:"/>
+            <ComboBox fx:id="yearCombo"/>
+            <Label text="Month:"/>
+            <ComboBox fx:id="monthCombo"/>
+        </HBox>
+        <BarChart fx:id="barChart" title="Expenses by Category">
+            <xAxis>
+                <CategoryAxis label="Category"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Total Expense"/>
+            </yAxis>
+        </BarChart>
+        <Label fx:id="totalLabel" styleClass="total-label"/>
+    </VBox>
+</AnchorPane>

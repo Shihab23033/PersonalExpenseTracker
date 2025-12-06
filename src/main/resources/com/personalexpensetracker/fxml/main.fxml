@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.personalexpensetracker.controller.MainController">
+    <left>
+        <VBox prefHeight="274.0" prefWidth="186.0" spacing="10" styleClass="sidebar">
+            <!-- Explicit Insets element for padding -->
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <Button onAction="#onShowCategory" text="Categories" />
+            <Button onAction="#onShowExpense" text="Expenses" />
+            <Button onAction="#onShowReport" text="Reports" />
+            <Region VBox.vgrow="ALWAYS" />
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="mainContent" />
+    </center>
+</BorderPane>
