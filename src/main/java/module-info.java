@@ -1,8 +1,8 @@
 module com.personalexpensetracker {
-    requires javafx.controls;
-    requires javafx.fxml;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
     requires java.sql;
-    requires javafx.graphics;
+    requires transitive javafx.graphics;
     requires javafx.web;
     requires javafx.swing;
 
@@ -12,4 +12,7 @@ module com.personalexpensetracker {
 
     exports com.personalexpensetracker;
     exports com.personalexpensetracker.controller;
+    exports com.personalexpensetracker.model;
+    exports com.personalexpensetracker.service;
+    exports com.personalexpensetracker.util;
 }

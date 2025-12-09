@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import com.personalexpensetracker.util.Session;
 
 public class ExpenseController {
 
@@ -78,7 +79,11 @@ public class ExpenseController {
     }
 
     private void loadExpenses() {
-        expenses.setAll(expenseService.getAll());
+        if (Session.getCurrentUser() != null) {
+            expenses.setAll(expenseService.getAllForUser(Session.getCurrentUser().getId()));
+        } else {
+            expenses.setAll(expenseService.getAll());
+        }
         table.setItems(expenses);
     }
 
@@ -92,9 +97,22 @@ public class ExpenseController {
             boolean recurring = recurringCheckbox.isSelected();
 
             Expense e = new Expense(0, cat, desc, amount, date, recurring);
+            if (Session.getCurrentUser() != null) e.setUserId(Session.getCurrentUser().getId());
             expenseService.add(e);
             clearForm();
             loadExpenses();
+
+            // after adding, check budget for logged-in user
+            if (Session.getCurrentUser() != null) {
+                int year = date.getYear();
+                int month = date.getMonthValue();
+                double total = expenseService.getTotalForUserMonth(year, month, Session.getCurrentUser().getId());
+                double budget = Session.getCurrentUser().getBudget();
+                if (budget > 0 && total > budget) {
+                    Alert a = new Alert(Alert.AlertType.WARNING, "Budget exceeded: you have spent " + total + " which is over your budget of " + budget, ButtonType.OK);
+                    a.showAndWait();
+                }
+            }
         } catch (NumberFormatException ex) { showAlert("Invalid amount"); }
     }
 
@@ -108,8 +126,22 @@ public class ExpenseController {
             sel.setAmount(Double.parseDouble(amountField.getText()));
             sel.setDate(datePicker.getValue());
             sel.setRecurring(recurringCheckbox.isSelected());
+            if (Session.getCurrentUser() != null) sel.setUserId(Session.getCurrentUser().getId());
             expenseService.update(sel);
             loadExpenses();
+
+            // check budget after update
+            if (Session.getCurrentUser() != null) {
+                LocalDate date = sel.getDate();
+                int year = date.getYear();
+                int month = date.getMonthValue();
+                double total = expenseService.getTotalForUserMonth(year, month, Session.getCurrentUser().getId());
+                double budget = Session.getCurrentUser().getBudget();
+                if (budget > 0 && total > budget) {
+                    Alert a = new Alert(Alert.AlertType.WARNING, "Budget exceeded: you have spent " + total + " which is over your budget of " + budget, ButtonType.OK);
+                    a.showAndWait();
+                }
+            }
         } catch (NumberFormatException ex) { showAlert("Invalid amount"); }
     }
 

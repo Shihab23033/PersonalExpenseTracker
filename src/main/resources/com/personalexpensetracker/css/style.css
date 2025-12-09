@@ -46,3 +46,138 @@
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
+
+/* Global button styles */
+.button {
+    -fx-background-color: linear-gradient(#6fb1fc, #3a8ee6);
+    -fx-text-fill: white;
+    -fx-padding: 8 14 8 14;
+    -fx-background-radius: 6;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+}
+.button:disabled {
+    -fx-opacity: 0.6;
+}
+.button.secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: transparent;
+    -fx-font-weight: 600;
+}
+.button.flat {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3a8ee6;
+    -fx-padding: 6 8 6 8;
+}
+
+/* Form inputs */
+.text-field, .text-area, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 6 8 6 8;
+    -fx-border-color: #d6dbe0;
+    -fx-focus-color: #3a8ee6;
+}
+
+/* Panels / cards */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+/* Sidebar tweaks */
+.sidebar {
+    -fx-background-color: #2c3e50;
+}
+.sidebar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12 10 12;
+}
+.sidebar .button:hover {
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+
+/* Header */
+.app-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Tables */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e1e6ea;
+}
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#fafbfc, #f2f4f6);
+}
+
+/* Dashboard labels */
+.metric {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #2c3e50;
+}
+.metric-small {
+    -fx-font-size: 13px;
+    -fx-text-fill: #676f77;
+}
+
+/* Warning */
+.warning-label {
+    -fx-text-fill: #b00020;
+    -fx-font-weight: 700;
+}
+
+/* Profile card styles */
+.profile-card {
+    -fx-max-width: 760px;
+    -fx-padding: 24px;
+    -fx-alignment: center;
+}
+.profile-name {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #22303f;
+}
+.metric-tile {
+    -fx-background-color: linear-gradient(#ffffff, #fbfcfd);
+    -fx-background-radius: 8;
+    -fx-padding: 12 20 12 20;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.06), 6, 0, 0, 2);
+}
+.metric-title {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7b8a93;
+}
+.metric-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2c3e50;
+}
+.avatar-image {
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 2);
+    -fx-background-radius: 48;
+}
+
+/* Center root adjustments for profile view */
+.profile-root {
+    -fx-alignment: center;
+}
+
+/* Small utilities */
+.muted { -fx-text-fill: #7b8a93; }
+.spaced { -fx-spacing: 8; }
+
+/* Responsive-ish constraints */
+@media screen and (min-width: 900px) {
+    .root { -fx-font-size: 13px; }
+}

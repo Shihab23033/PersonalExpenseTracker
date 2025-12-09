@@ -9,6 +9,7 @@ public class Expense {
     private double amount;
     private LocalDate date;
     private boolean recurring;
+    private int userId; // owner user id (0 = none)
 
     public Expense() {}
 
@@ -16,6 +17,9 @@ public class Expense {
         this.id = id; this.category = category; this.description = description;
         this.amount = amount; this.date = date; this.recurring = recurring;
     }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

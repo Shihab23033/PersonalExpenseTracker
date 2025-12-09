@@ -1,6 +1,7 @@
 package com.personalexpensetracker.controller;
 
 import com.personalexpensetracker.service.ExpenseService;
+import com.personalexpensetracker.util.Session;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -53,7 +54,12 @@ public class ReportController {
         int month = monthCombo.getSelectionModel().getSelectedIndex() + 1;
 
         barChart.getData().clear();
-        Map<String, Double> categoryTotals = expenseService.getCategoryTotalsForMonth(year, month);
+        Map<String, Double> categoryTotals;
+        if (Session.getCurrentUser() != null) {
+            categoryTotals = expenseService.getCategoryTotalsForMonthForUser(year, month, Session.getCurrentUser().getId());
+        } else {
+            categoryTotals = expenseService.getCategoryTotalsForMonth(year, month);
+        }
 
         double totalExpense = 0.0;
 

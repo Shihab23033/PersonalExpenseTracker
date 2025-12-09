@@ -109,6 +109,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- or latest -->
+        </dependency>
 
         <!-- JUnit -->
         <dependency>
@@ -151,7 +156,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.personalexpensetracker.personalexpensetracker.MainApp
+                                com.personalexpensetracker.MainApp
                             </mainClass>
                             <launcher>app</launcher>
                         </configuration>

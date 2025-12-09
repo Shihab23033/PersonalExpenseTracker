@@ -4,50 +4,49 @@
 <?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.personalexpensetracker.controller.ExpenseController" prefWidth="900" prefHeight="600">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+    <VBox spacing="12" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" styleClass="spaced">
         <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
+            <Insets top="12" right="12" bottom="12" left="12"/>
         </padding>
 
-        <Label text="Expenses" styleClass="heading" />
+        <Label text="Expenses" styleClass="app-header" />
 
-        <GridPane hgap="10" vgap="10">
+        <GridPane hgap="12" vgap="12" styleClass="card">
             <columnConstraints>
-                <ColumnConstraints percentWidth="25"/>
-                <ColumnConstraints percentWidth="25"/>
-                <ColumnConstraints percentWidth="25"/>
-                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="15"/>
+                <ColumnConstraints percentWidth="35"/>
+                <ColumnConstraints percentWidth="15"/>
+                <ColumnConstraints percentWidth="35"/>
             </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="NEVER"/>
-            </rowConstraints>
 
-            <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <ComboBox fx:id="categoryCombo" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Label text="Amount" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <TextField fx:id="amountField" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="muted" />
+            <ComboBox fx:id="categoryCombo" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <Label text="Description" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="descField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3"/>
+            <Label text="Amount:" GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="muted" />
+            <TextField fx:id="amountField" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-            <Label text="Date" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <Label text="Recurring" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-            <CheckBox fx:id="recurringCheckbox" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="muted" />
+            <TextField fx:id="descField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" />
+
+            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="muted" />
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="Recurring:" GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="muted" />
+            <CheckBox fx:id="recurringCheckbox" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         </GridPane>
 
-        <HBox spacing="10">
-            <Button text="Add" onAction="#addExpense"/>
-            <Button text="Update" onAction="#updateExpense"/>
-            <Button text="Delete" onAction="#deleteExpense"/>
+        <HBox spacing="12" alignment="CENTER_RIGHT">
+            <Button text="Add" onAction="#addExpense" styleClass="button" />
+            <Button text="Update" onAction="#updateExpense" styleClass="button" />
+            <Button text="Delete" onAction="#deleteExpense" styleClass="button flat" />
         </HBox>
 
-        <TableView fx:id="table" prefHeight="300">
+        <TableView fx:id="table" prefHeight="320" styleClass="table-view">
             <columns>
-                <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
-                <TableColumn fx:id="colCategory" text="Category" prefWidth="150"/>
-                <TableColumn fx:id="colDesc" text="Description" prefWidth="400"/>
-                <TableColumn fx:id="colAmount" text="Amount" prefWidth="120"/>
+                <TableColumn fx:id="colDate" text="Date" prefWidth="120" style="-fx-alignment: CENTER;" />
+                <TableColumn fx:id="colCategory" text="Category" prefWidth="150" />
+                <TableColumn fx:id="colDesc" text="Description" prefWidth="430" />
+                <TableColumn fx:id="colAmount" text="Amount" prefWidth="120" style="-fx-alignment: CENTER-RIGHT;" />
             </columns>
         </TableView>
     </VBox>

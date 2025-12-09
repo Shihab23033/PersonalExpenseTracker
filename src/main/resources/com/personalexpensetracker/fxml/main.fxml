@@ -17,6 +17,7 @@
 
             <Button onAction="#onShowCategory" text="Categories" />
             <Button onAction="#onShowExpense" text="Expenses" />
+            <Button onAction="#onShowDashboard" text="Dashboard" />
             <Button onAction="#onShowReport" text="Reports" />
             <Region VBox.vgrow="ALWAYS" />
         </VBox>
