@@ -10,7 +10,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/personalexpensetracker/fxml/main.fxml"));
-        Scene scene = new Scene(loader.load(), 1000, 650);
+        Scene scene = new Scene(loader.load(), 1100, 650);
         scene.getStylesheets().add(getClass().getResource("/com/personalexpensetracker/css/style.css").toExternalForm());
 
         stage.setTitle("Personal Expense Tracker");

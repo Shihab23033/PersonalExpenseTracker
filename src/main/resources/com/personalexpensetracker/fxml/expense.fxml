@@ -41,6 +41,18 @@
             <Button text="Delete" onAction="#deleteExpense" styleClass="button flat" />
         </HBox>
 
+        <!-- Filters: month, year, category -->
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="card">
+            <Label text="Month:" styleClass="muted" />
+            <ComboBox fx:id="monthCombo" prefWidth="140" />
+            <Label text="Year:" styleClass="muted" />
+            <ComboBox fx:id="yearCombo" prefWidth="120" />
+            <Label text="Category:" styleClass="muted" />
+            <ComboBox fx:id="categoryFilterCombo" prefWidth="180" />
+            <Button text="Apply" onAction="#applyFilters" styleClass="button small" />
+            <Button text="Clear" onAction="#clearFilters" styleClass="button flat small" />
+        </HBox>
+
         <TableView fx:id="table" prefHeight="320" styleClass="table-view">
             <columns>
                 <TableColumn fx:id="colDate" text="Date" prefWidth="120" style="-fx-alignment: CENTER;" />

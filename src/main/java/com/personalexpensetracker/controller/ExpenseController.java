@@ -16,6 +16,9 @@ import com.personalexpensetracker.util.Session;
 public class ExpenseController {
 
     @FXML private ComboBox<Category> categoryCombo;
+    @FXML private ComboBox<Integer> monthCombo;
+    @FXML private ComboBox<Integer> yearCombo;
+    @FXML private ComboBox<String> categoryFilterCombo;
     @FXML private TextField descField;
     @FXML private TextField amountField;
     @FXML private DatePicker datePicker;
@@ -36,6 +39,7 @@ public class ExpenseController {
     @FXML
     public void initialize() {
         loadCategories();
+        setupFilters();
         loadExpenses();
         datePicker.setValue(LocalDate.now());
 
@@ -76,15 +80,70 @@ public class ExpenseController {
     private void loadCategories() {
         List<Category> categories = categoryService.getAll();
         categoryCombo.setItems(FXCollections.observableArrayList(categories));
+        // populate category filter with names (include "All")
+        ObservableList<String> catNames = FXCollections.observableArrayList();
+        catNames.add("All");
+        for (Category c : categories) catNames.add(c.getName());
+        categoryFilterCombo.setItems(catNames);
+        categoryFilterCombo.getSelectionModel().selectFirst();
+    }
+
+    private void setupFilters() {
+        // months 1..12
+        ObservableList<Integer> months = FXCollections.observableArrayList();
+        for (int m = 1; m <= 12; m++) months.add(m);
+        monthCombo.setItems(months);
+        // years: current year and previous 4 years
+        int curYear = LocalDate.now().getYear();
+        ObservableList<Integer> years = FXCollections.observableArrayList();
+        for (int y = curYear - 4; y <= curYear + 1; y++) years.add(y);
+        yearCombo.setItems(years);
+        // default to current month/year
+        monthCombo.getSelectionModel().select(Integer.valueOf(LocalDate.now().getMonthValue()));
+        yearCombo.getSelectionModel().select(Integer.valueOf(curYear));
     }
 
     private void loadExpenses() {
+        List<Expense> list;
         if (Session.getCurrentUser() != null) {
-            expenses.setAll(expenseService.getAllForUser(Session.getCurrentUser().getId()));
+            list = expenseService.getAllForUser(Session.getCurrentUser().getId());
         } else {
-            expenses.setAll(expenseService.getAll());
+            list = expenseService.getAll();
         }
+        expenses.setAll(list);
         table.setItems(expenses);
+    }
+
+    @FXML
+    private void applyFilters() {
+        Integer selMonth = monthCombo.getSelectionModel().getSelectedItem();
+        Integer selYear = yearCombo.getSelectionModel().getSelectedItem();
+        String selCategory = categoryFilterCombo.getSelectionModel().getSelectedItem();
+
+        List<Expense> source;
+        if (Session.getCurrentUser() != null) source = expenseService.getAllForUser(Session.getCurrentUser().getId());
+        else source = expenseService.getAll();
+
+        List<Expense> filtered = new java.util.ArrayList<>();
+        for (Expense e : source) {
+            boolean keep = true;
+            if (selYear != null && e.getDate() != null) keep = keep && (e.getDate().getYear() == selYear);
+            if (selMonth != null && e.getDate() != null) keep = keep && (e.getDate().getMonthValue() == selMonth);
+            if (selCategory != null && !"All".equals(selCategory)) {
+                String cname = e.getCategory() == null ? "Uncategorized" : e.getCategory().getName();
+                keep = keep && selCategory.equals(cname);
+            }
+            if (keep) filtered.add(e);
+        }
+        expenses.setAll(filtered);
+    }
+
+    @FXML
+    private void clearFilters() {
+        monthCombo.getSelectionModel().select(Integer.valueOf(LocalDate.now().getMonthValue()));
+        yearCombo.getSelectionModel().select(Integer.valueOf(LocalDate.now().getYear()));
+        if (categoryFilterCombo.getItems() != null && !categoryFilterCombo.getItems().isEmpty()) categoryFilterCombo.getSelectionModel().selectFirst();
+        loadExpenses();
     }
 
     @FXML

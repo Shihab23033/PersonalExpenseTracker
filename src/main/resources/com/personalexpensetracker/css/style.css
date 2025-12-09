@@ -71,6 +71,19 @@
     -fx-padding: 6 8 6 8;
 }
 
+/* Danger / destructive button */
+.button.danger {
+    -fx-background-color: linear-gradient(#ff7b7b, #e04343);
+    -fx-text-fill: white;
+}
+.button.flat.danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e04343;
+    -fx-border-color: #e04343;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+
 /* Form inputs */
 .text-field, .text-area, .password-field, .combo-box {
     -fx-background-color: white;
