@@ -26,6 +26,8 @@
                 <NumberAxis label="Total Expense"/>
             </yAxis>
         </BarChart>
+        <!-- Legend: color indicator for categories -->
+        <HBox fx:id="legendBox" spacing="12" alignment="CENTER_LEFT"/>
         <Label fx:id="totalLabel" styleClass="total-label"/>
     </VBox>
 </AnchorPane>

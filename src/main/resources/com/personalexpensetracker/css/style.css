@@ -41,6 +41,40 @@
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
+
+/* Make bars look better: gradient fill, rounded corners */
+.chart-bar .bar {
+    -fx-bar-fill: linear-gradient(#ff9f4d, #ff7b4d);
+    -fx-background-radius: 6;
+}
+
+/* Tweak axis and bar spacing for a chunkier look */
+.chart-plot-background {
+    -fx-background-insets: 0;
+}
+.chart .axis {
+    -fx-tick-label-font-size: 12px;
+}
+.chart .category-axis .axis-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+.chart .number-axis .axis-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+/* Larger bar labels (the small values above bars) */
+.bar-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #22303f;
+}
+
+/* Legend styles for report chart */
+.legend-item { -fx-alignment: CENTER_LEFT; -fx-spacing: 6; }
+.legend-swatch { -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.06), 2, 0, 0, 1); }
+.legend-label { -fx-font-size: 12px; -fx-text-fill: #333; -fx-font-weight: 600; }
 .total-label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;

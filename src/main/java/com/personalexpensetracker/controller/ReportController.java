@@ -7,7 +7,10 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,6 +23,7 @@ public class ReportController {
     @FXML private ComboBox<Integer> yearCombo;
     @FXML private ComboBox<String> monthCombo;
     @FXML private Label totalLabel;
+    @FXML private HBox legendBox;
 
     private final ExpenseService expenseService = new ExpenseService();
 
@@ -43,6 +47,9 @@ public class ReportController {
         yearCombo.setOnAction(e -> loadChart());
         monthCombo.setOnAction(e -> loadChart());
 
+        // hide built-in chart legend because we use a custom legendBox
+        if (barChart != null) barChart.setLegendVisible(false);
+
         loadChart();
     }
 
@@ -63,31 +70,68 @@ public class ReportController {
 
         double totalExpense = 0.0;
 
+
+        // Prepare a color palette and map categories to colors
+        String[] palette = new String[]{"#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc949", "#af7aa1", "#ff9da7", "#9c755f", "#bab0ac"};
+        java.util.Map<String, String> colorMap = new java.util.HashMap<>();
+        int i = 0;
+
+        // Single series for consistent thickness but apply per-bar colors/styles and build custom legend
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Expenses");
+
+        // clear previous legend
+        if (legendBox != null) legendBox.getChildren().clear();
+
         for (Map.Entry<String, Double> entry : categoryTotals.entrySet()) {
             String category = entry.getKey();
             Double total = entry.getValue();
             totalExpense += total;
 
-            // Each category gets its own series -> distinct color + legend entry
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(category);
+            // assign color
+            String color = palette[i % palette.length];
+            colorMap.put(category, color);
+            i++;
 
             XYChart.Data<String, Number> data = new XYChart.Data<>(category, total);
             series.getData().add(data);
 
-            // Add label above bar
+            // add legend swatch
+            if (legendBox != null) {
+                Rectangle sw = new Rectangle(14, 12, Color.web(color));
+                sw.getStyleClass().add("legend-swatch");
+                Label lbl = new Label(" " + category);
+                lbl.getStyleClass().add("legend-label");
+                HBox item = new HBox(6, sw, lbl);
+                item.getStyleClass().add("legend-item");
+                legendBox.getChildren().add(item);
+            }
+
+            // style node when available and add label/tooltip
             data.nodeProperty().addListener((obs, oldNode, newNode) -> {
                 if (newNode != null) {
-                    Label label = new Label(String.valueOf(total));
+                    // apply color
+                    newNode.setStyle(String.format("-fx-bar-fill: %s; -fx-background-radius: 6;", color));
+
+                    Label label = new Label(String.format("%.2f", total));
                     label.getStyleClass().add("bar-label");
+                    label.setTranslateY(-18);
                     StackPane stackPane = (StackPane) newNode;
                     stackPane.getChildren().add(label);
+
+                    javafx.scene.control.Tooltip t = new javafx.scene.control.Tooltip(String.format("%s: %.2f", category, total));
+                    javafx.scene.control.Tooltip.install(newNode, t);
                 }
             });
-
-            barChart.getData().add(series);
         }
 
-        totalLabel.setText("Total Expense: " + totalExpense);
+        barChart.getData().add(series);
+
+        // Chart tuning
+        barChart.setCategoryGap(18);
+        barChart.setBarGap(6);
+        barChart.setAnimated(false);
+
+        totalLabel.setText(String.format("Total Expense: %.2f", totalExpense));
     }
 }
