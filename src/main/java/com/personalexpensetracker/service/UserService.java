@@ -54,6 +54,20 @@ public class UserService {
         return false;
     }
 
+    /**
+     * Checks whether a username already exists in the users table.
+     */
+    public boolean isUsernameTaken(String username) {
+        String sql = "SELECT COUNT(*) as cnt FROM users WHERE username=?";
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt("cnt") > 0;
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return false;
+    }
+
     public boolean updateBudget(int userId, double budget) {
         String sql = "UPDATE users SET budget=? WHERE id=?";
         try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {

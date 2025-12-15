@@ -17,7 +17,7 @@ public class SignupController {
     @FXML private TextField usernameField;
     @FXML private TextField fullnameField;
     @FXML private TextField budgetField;
-    @FXML private TextField passwordField;
+    @FXML private javafx.scene.control.PasswordField passwordField;
     @FXML private Label messageLabel;
 
     private final UserService userService = new UserService();
@@ -35,9 +35,15 @@ public class SignupController {
             return;
         }
 
+        // check if username exists first for clearer message
+        if (userService.isUsernameTaken(username)) {
+            messageLabel.setText("Username already taken");
+            return;
+        }
+
         boolean ok = userService.createUser(username, pass, fullname, budget);
         if (!ok) {
-            messageLabel.setText("Unable to create user (maybe username exists)");
+            messageLabel.setText("Unable to create user (database error)");
             return;
         }
 
